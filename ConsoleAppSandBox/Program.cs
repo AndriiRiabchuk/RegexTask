@@ -8,13 +8,9 @@ namespace ConsoleAppSandBox
 {
     class Program
     {
-        static void Main(string[] args)
+
+        static string Validate(string s)
         {
-
-            string s = File.ReadAllText("new1.txt");
-            Console.WriteLine(s);
-
-
             var regex = new Regex("\"\\w*\"");
             foreach (Match match in regex.Matches(s))
                 s = s.Replace(match.Value,match.Value.Substring(1,match.Value.Length-2));
@@ -28,7 +24,7 @@ namespace ConsoleAppSandBox
 
                 for (int i = 0; i < s.Length; i++)
                 {
-                    if (s.Length - i  < m)
+                    if (s.Length - i < m)
                     {
                         break;
                     }
@@ -41,7 +37,7 @@ namespace ConsoleAppSandBox
                         {
                             s = s.Substring(0, i + m) + " " + s.Substring(i + m);
                         }
-                        if (i-1>=0 &&s[i - 1] != ' ')
+                        if (i - 1 >= 0 && s[i - 1] != ' ')
                         {
                             s = s.Substring(0, i) + " " + s.Substring(i);
                             i++;
@@ -58,13 +54,21 @@ namespace ConsoleAppSandBox
                 {
                     if (s[i] == '\"')
                     {
-                        s = s.Substring(0, i - 1) + "\\" + s.Substring(i, l - i );
+                        s = s.Substring(0, i - 1) + "\\" + s.Substring(i, l - i);
                         break;
                     }
                 }
             }
 
             s = s.Replace("'", "''");
+            return s;
+        }
+        static void Main(string[] args)
+        {
+
+            string s = File.ReadAllText("new1.txt");
+
+            Console.WriteLine(Validate(s));
 
             string con = "data source = PC0007;Initial Catalog=lab; User Id = user; Password = 123";
             var sqlcon = new SqlConnection(con);
