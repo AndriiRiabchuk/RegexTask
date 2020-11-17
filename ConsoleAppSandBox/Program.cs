@@ -13,9 +13,7 @@ namespace ConsoleAppSandBox
         {
             s = Regex.Replace(Regex.Replace(s, "(\".*?\")", " $1 ").Trim(),@"\s+"," ").Replace("'","''");
         
-            s = (s.ToCharArray().Count(c => c == '\"') % 2 == 1) ? s.Remove(s.LastIndexOf("\""),1) : s;
-
-            return s;
+            return (s.ToCharArray().Count(c => c == '\"') % 2 == 1) ? s.Remove(s.LastIndexOf("\""), 1) : s;
         }
 
         static void Main(string[] args)
